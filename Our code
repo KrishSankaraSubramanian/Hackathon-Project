@@ -1,3 +1,30 @@
+# Create a Caesar cipher that encrypts data in a senario where the data would be at a risk of breached
 import random
-if letter in['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l' 'm', 'n', 'o', 'p', 'q', 'r', 's' 't', 'u', 'v', 'w', 'x', 'y', 'z']
-letter = input
+
+letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+
+def encrypt(text,shift):
+    encrypted_text = "" 
+    for char in text:
+        if char.isalpha():
+            low_char = char.lower()
+            index = letters.index(low_char)
+            new_index = (index + shift) % 26
+            encrypted_char = letters[new_index]
+            if char.isupper():
+                encrypted_text += encrypted_char.upper()
+
+            else:
+                encrypted_text += encrypted_char
+        else:
+            encrypted_text += char 
+    return encrypted_text        
+
+
+def decrypt(text, shift):
+     decrypted_text = ""
+     for char in text:
+        if char.isalpha():
+            lower_char = char.lower() 
+                  
+
