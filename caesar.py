@@ -1,6 +1,7 @@
 # Create a Caesar cipher that encrypts data in a senario where the data would be at a risk of breached
 import random
 import hashlib
+import os
 
 letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
@@ -39,9 +40,13 @@ def decrypt(text, shift):
 
      return decrypted_text
 
-def generate_hash(text):
+def generate_salt(length=16):
+    return os.urandom(length).hex()
+
+
+def generate_hash(text, salt):
     sha256_hash = hashlib.sha256()
-    sha256_hash.update(text.encode('utf-8'))
+    sha256_hash.update((salt+ text).encode('utf-8'))
     return sha256_hash.hexdigest()
 
 def main():
@@ -51,7 +56,9 @@ def main():
     encrypted_text = encrypt(letter, shift)
     print("Encrypted text:", encrypted_text)
 
-    encrypted_hash = generate_hash(encrypted_text) 
+    salt = generate_salt()
+    encrypted_hash = generate_hash(encrypted_text, salt) 
+    print('Salt:', salt)
     print('SHA-256 Hash of the encrypted text', encrypted_hash)                 
   
     decrypted_text = decrypt(encrypted_text, shift)
