@@ -26,5 +26,27 @@ def decrypt(text, shift):
      for char in text:
         if char.isalpha():
             lower_char = char.lower() 
-                  
+            index = letters.index(lower_char)
+            new_index = (index - shift) % 26  
+            decrypted_char = letters[new_index]
+            if char.isupper():
+                decrypted_text += decrypted_char.upper()
+            else:
+                decrypted_text += decrypted_char
+        else:
+            decrypted_text += char
 
+     return decrypted_text
+
+def main():
+    letter = input("Enter the text for Caesar Cipher: ")
+    shift = int(input("Enter the shift value (key): "))
+    
+    encrypted_text = encrypt(letter, shift)
+    print("Encrypted text:", encrypted_text)                  
+  
+    decrypted_text = decrypt(encrypted_text, shift)
+    print("Decrypted text:", decrypted_text)
+
+if __name__ == "__main__":
+        main()
